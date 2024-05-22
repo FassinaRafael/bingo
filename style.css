@@ -1,0 +1,8 @@
+thead, th, tbody, td {
+    border: 1px solid black;
+    width: 35px;
+    flex-direction: column;
+    text-align: center;
+    padding: 5px;
+    border-collapse: collapse;
+}
