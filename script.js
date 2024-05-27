@@ -1,18 +1,17 @@
-function criarTabela(nome)
-{
-    //Esqueleto da tabela
+function criarTabela(nome) {
+    // Esqueleto da tabela
     const tabela = document.createElement("table");
     const thead = document.createElement("thead");
     const tbody = document.createElement("tbody");
 
-    //Agregando elementos
+    // Agregando elementos
     tabela.appendChild(thead);
     tabela.appendChild(tbody);
 
     const body = document.querySelector("body");
     body.appendChild(tabela);
 
-    //Criando os elementos
+    // Criando os elementos do cabeçalho
     const th_nome = document.createElement("th");
     th_nome.innerText = nome;
     th_nome.colSpan = 5;
@@ -38,35 +37,39 @@ function criarTabela(nome)
     tr_header.appendChild(th_O);
     thead.appendChild(tr_header);
 
-    // Adicionando células com números aleatórios
-    for (let i = 0; i < 5; i++)
-    {
-        const tr = document.createElement("tr")
-        for (let j = 0; j < 5; j++)
-        {
-            let td = document.createElement("td")
-            td.innerText = numeros(j); 
+    // Criando um array para armazenar os números já gerados
+    let numerosGerados = [];
+
+    // Adicionando células com números aleatórios e "X" no centro
+    for (let i = 0; i < 5; i++) {
+        const tr = document.createElement("tr");
+        for (let j = 0; j < 5; j++) {
+            let td = document.createElement("td");
+            if (i == 2 && j == 2) {
+                td.innerText = "XX"; // Colocando "X" no centro
+            } else {
+                // Gerando números aleatórios não repetidos na mesma coluna
+                let num;
+                do {
+                    num = numeros(j);
+                } while (numerosGerados.includes(num));
+                numerosGerados.push(num);
+                td.innerText = num;
+            }
             tr.appendChild(td);
         }
         tbody.appendChild(tr);
     }
 }
 
-function pedirNome()
-{
+function numeros(coluna) {
+    const inicio = coluna * 15 + 1;
+    const fim = inicio + 14;
+    let aleatorio = Math.floor(Math.random() * (fim - inicio + 1) + inicio);
+    return aleatorio;
+}
+
+function pedirNome() {
     const nome = prompt("Insira o nome que quer exibir na tabela");
     criarTabela(nome);
 }
-
-function numeros(coluna)
-{
-        
-    const inicio = coluna * 15 + 1
-    const fim = inicio + 14
-    
-    return Math.floor(Math.random() * (fim - inicio + 1) + inicio)
-    
-
-}
-
-
